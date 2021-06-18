@@ -91,7 +91,7 @@ def setup(bot):
 
 
 def shutdown(bot):
-    for key in ['rtfm_inventory', 'rtfm_objects']:
+    for key in ['rtfm_base', 'rtfm_inventory', 'rtfm_objects']:
         try:
             del bot.memory[key]
         except KeyError:
