@@ -104,8 +104,8 @@ def suggest_doc_link(bot, trigger):
     query = trigger.group(2)
 
     if not query:
-        bot.reply("I need something to search for.")
-        return module.NOLIMIT
+        bot.say(bot.memory['rtfm_base'])
+        return
 
     try:
         result = bot.memory['rtfm_inventory'].suggest(query, thresh=75)[0]
