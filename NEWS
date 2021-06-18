@@ -1,0 +1,14 @@
+0.1.1
+=====
+
+Changed:
+* Empty/missing query now outputs the docs' base URL instead of an error
+
+Fixed:
+* `rtfm_base` was left in `bot.memory` after `shutdown()`
+
+
+0.1.0
+=====
+
+Initial release.
