@@ -1,3 +1,12 @@
+0.2.0
+=====
+
+Added:
+* Caching behavior: The configured Sphinx inventory is fetched at startup, and
+  re-fetched automatically every 24 hours
+* Bot admins can force an update with the new `.rtfmupdate` command
+
+
 0.1.1
 =====
 
