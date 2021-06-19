@@ -91,11 +91,7 @@ def update_sphinx_objects(bot, force=False):
         name: url
         for (name, url) in [
             (
-                ':{domain}:{role}:`{name}`'.format(
-                    domain=o.domain,
-                    role=o.role,
-                    name=o.name,
-                ),
+                o.as_rst,
                 o.uri_expanded,
             )
             for o in inv.objects
