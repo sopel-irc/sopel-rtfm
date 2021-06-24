@@ -122,15 +122,37 @@ def suggest_doc_link(bot, trigger):
         bot.say(bot.memory['rtfm_base'])
         return
 
-    try:
-        result = bot.memory['rtfm_inventory'].suggest(query, thresh=75)[0]
-    except (IndexError, TypeError):
+    results = bot.memory['rtfm_inventory'].suggest(query, thresh=85)
+
+    if not results:
         bot.say("No result found for query: {}".format(query))
         return
 
-    link = bot.memory['rtfm_base'] + bot.memory['rtfm_objects'][result]
+    docs = []
+    sections = []
+    modules = []
+    classes = []
+    functions = []
+    other = []
+    for r in results:
+        # This is a lazy way to order the results so that "bigger" or more
+        # important objects are returned first
+        if ':doc:' in r:
+            docs.append(r)
+        elif ':label:' in r:
+            sections.append(r)
+        elif ':module:' in r:
+            modules.append(r)
+        elif ':class:' in r:
+            classes.append(r)
+        elif ':func:' in r or ':method:' in r:
+            functions.append(r)
+        else:
+            other.append(r)
 
-    bot.say(link)
+    results = docs + sections + modules + classes + functions + other
+
+    bot.say(bot.memory['rtfm_base'] + bot.memory['rtfm_objects'][results[0]])
 
 
 @module.commands('rtfmupdate')
