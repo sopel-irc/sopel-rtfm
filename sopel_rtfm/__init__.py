@@ -114,8 +114,10 @@ def shutdown(bot):
 
 
 @module.commands('rtfm')
+@module.example('.rtfm bind_host')
 @module.output_prefix('[rtfm] ')
 def suggest_doc_link(bot, trigger):
+    """Search the configured Sphinx object inventory and output a link to the best match."""
     query = trigger.group(2)
 
     if not query:
