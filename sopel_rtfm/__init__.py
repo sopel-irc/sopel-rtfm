@@ -113,7 +113,7 @@ def shutdown(bot):
             pass
 
 
-@module.commands('rtfm')
+@module.commands('rtfm', 'docs')
 @module.example('.rtfm bind_host')
 @module.output_prefix('[rtfm] ')
 def suggest_doc_link(bot, trigger):
