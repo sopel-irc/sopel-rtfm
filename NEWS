@@ -1,3 +1,10 @@
+0.4.0
+=====
+
+Added:
+* `.docs` command alias, for when `.rtfm` feels harsh (#2)
+
+
 0.3.0
 =====
 
