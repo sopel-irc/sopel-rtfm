@@ -2,14 +2,28 @@
 
 A plugin to suggest documentation links when someone asks a basic question.
 
-## Functions
+## Installing
 
-`sopel-rtfm` provides one command:
+This plugin is built for Sopel 8.0+.
 
-* `.rtfm` — searches the configured Sphinx object inventory for the best
-  match, and outputs a link to its documentation.
+Releases are hosted on PyPI, so after installing Sopel, all you need is `pip`:
 
-## Configuration
+```shell
+$ pip install sopel-rtfm
+```
+
+### Optional extras
+
+Optionally, you can install `sphobjinv[speedup]` for faster searches; this may
+or may not work depending on whether your installation of Python includes the
+necessary dependencies for building C extensions.
+
+
+## Configuring
+
+The easiest way to configure `sopel-rtfm` is via Sopel's configuration
+wizard—simply run `sopel-plugins configure rtfm` and enter the values for which
+it prompts you.
 
 Two settings exist, one of which is required:
 
@@ -21,12 +35,9 @@ inventory = https://docs.project.site/objects.inv
 link_base = https://docs.project.site/
 ```
 
-## Requirements
+## Using
 
-This plugin is built for Sopel 7.0+, but targets Python 3.6+ only (no py2.7).
+`sopel-rtfm` provides one command:
 
-In addition, it needs the `sphobjinv` module from PyPI.
-
-Optionally, you can install `sphobjinv[speedup]` for faster searches; this may
-or may not work depending on whether your installation of Python includes the
-necessary dependencies for building C extensions.
+* `.rtfm` — searches the configured Sphinx object inventory for the best match,
+  and outputs a link to its documentation.
