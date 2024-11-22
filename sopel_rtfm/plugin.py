@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 import sphobjinv
 from sphobjinv.error import SphobjinvError
 
-from sopel import module, tools
+from sopel import plugin, tools
 from sopel.config import types
 
 
@@ -58,7 +58,7 @@ def setup(bot):
     update_sphinx_objects(bot)
 
 
-@module.interval(3600)
+@plugin.interval(3600)
 def update_sphinx_objects(bot, force=False):
     now = datetime.utcnow()
     age = now - bot.memory.get('rtfm_cache_time', datetime.fromtimestamp(0))
@@ -112,9 +112,9 @@ def shutdown(bot):
             pass
 
 
-@module.commands('rtfm', 'docs')
-@module.example('.rtfm bind_host')
-@module.output_prefix('[rtfm] ')
+@plugin.commands('rtfm', 'docs')
+@plugin.example('.rtfm bind_host')
+@plugin.output_prefix('[rtfm] ')
 def suggest_doc_link(bot, trigger):
     """Search the configured Sphinx object inventory and output a link to the best match."""
     query = trigger.group(2)
@@ -156,8 +156,8 @@ def suggest_doc_link(bot, trigger):
     bot.say(bot.memory['rtfm_base'] + bot.memory['rtfm_objects'][results[0]])
 
 
-@module.commands('rtfmupdate')
-@module.require_admin
+@plugin.commands('rtfmupdate')
+@plugin.require_admin
 def force_update(bot, trigger):
     """Force an update of the target Sphinx object inventory.
 
