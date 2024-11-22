@@ -36,11 +36,11 @@ def configure(config):
     config.define_section('rtfm', RTFMSection, validate=False)
     config.rtfm.configure_setting(
         'inventory',
-        "Enter the URL of your project's objects.inv file.",
+        "Enter the URL of your project's objects.inv file:",
     )
     config.rtfm.configure_setting(
         'link_base',
-        "Enter the base URL of your documentation (leave blank for automatic detection)."
+        "Enter the base URL of your documentation (leave blank for automatic detection):"
     )
 
 
