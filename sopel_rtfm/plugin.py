@@ -4,10 +4,9 @@ A plugin to suggest documentation links when someone asks a basic question.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 from urllib.error import URLError
-from urllib.parse import urlparse
 
 import sphobjinv
 from sphobjinv.error import SphobjinvError
@@ -60,8 +59,9 @@ def setup(bot):
 
 @plugin.interval(3600)
 def update_sphinx_objects(bot, force=False):
-    now = datetime.utcnow()
-    age = now - bot.memory.get('rtfm_cache_time', datetime.fromtimestamp(0))
+    now = datetime.now(timezone.utc)
+    age = now - bot.memory.get('rtfm_cache_time',
+                               datetime.fromtimestamp(0, timezone.utc))
 
     if not force and age.total_seconds() < 86400:  # 1 day / 24 hours in seconds
         LOGGER.debug("Inventory cache is under one day old, skipping update.")
