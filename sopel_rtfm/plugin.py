@@ -47,13 +47,29 @@ def configure(config):
 def setup(bot):
     bot.config.define_section('rtfm', RTFMSection)
 
-    bot.memory['rtfm_base'] = (
-        bot.config.rtfm.link_base or
-        os.path.dirname(bot.config.rtfm.inventory)
-    )
+    LOGGER.info('Inventory URL: %s', bot.config.rtfm.inventory)
+    if not bot.config.rtfm.inventory.endswith('.inv'):
+        LOGGER.warning(
+            'Inventory URL does not end with `.inv`; this may be incorrect.'
+        )
 
-    if not bot.memory['rtfm_base'].endswith('/'):
-        bot.memory['rtfm_base'] += '/'
+    rtfm_base = bot.config.rtfm.link_base
+    if not rtfm_base:
+        LOGGER.info(
+            'No `link_base` set; assuming base URL from `inventory` setting.')
+        # `dirname()` never includes a trailing slash unless you pass it '/',
+        # and '/' by itself isn't a valid URL. Appending the trailing slash here
+        # eliminates log noise from the check below when the user hasn't
+        # configured `link_base` manually.
+        rtfm_base = os.path.dirname(bot.config.rtfm.inventory) + '/'
+
+    if not rtfm_base.endswith('/'):
+        LOGGER.info(
+            'Base URL %r has no trailing slash; adding one.', rtfm_base)
+        rtfm_base += '/'
+
+    bot.memory['rtfm_base'] = rtfm_base
+    LOGGER.info('Base URL for RTFM links: %s', rtfm_base)
 
     update_sphinx_objects(bot)
 
@@ -73,16 +89,16 @@ def update_sphinx_objects(bot, force=False):
         inv = sphobjinv.Inventory(url=bot.config.rtfm.inventory)
     except ValueError:
         # invalid URL, probably
-        LOGGER.exception(
+        LOGGER.error(
             'Could not fetch inventory file; URL seems to be malformed: %s',
             bot.config.rtfm.inventory,
         )
         return
     except (SphobjinvError, URLError) as e:
         # couldn't fetch due to urllib error or unrecognized file format
-        LOGGER.exception(
-            'Could not fetch inventory file: %s',
-            str(e),
+        LOGGER.error(
+            'Could not fetch inventory file from %r: %s',
+            bot.config.rtfm.inventory, str(e),
         )
         return
 
