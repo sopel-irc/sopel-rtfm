@@ -1,5 +1,18 @@
 ## Changelog
 
+### 0.5.0
+
+Changed:
+* Require Sopel 8.0+ (#4)
+  * Minimum Python version is therefore now 3.8
+* Improve logging of inventory & URL settings at startup (#5)
+
+Meta:
+* Packaging modernized: goodbye `setup.cfg`, hello `pyproject.toml` (#4)
+  * Cleaned up some deprecated usage (`sopel.module`, `datetime.utcnow()`)
+  * Tweaked config wizard prompt punctuation
+
+
 ### 0.4.0
 
 Added:

@@ -14,7 +14,7 @@ readme = { file=["README.md", "NEWS"], content-type="text/markdown" }
 
 [project]
 name = "sopel-rtfm"
-version = "0.5.0.dev0"
+version = "0.5.0"
 description = "A plugin to suggest documentation links when someone asks a basic question."
 
 authors = [
